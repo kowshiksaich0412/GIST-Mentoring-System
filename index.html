@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIST Mentoring & Career Tracking System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="gradient-primary text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="h1 mb-6">GIST Mentoring System</h1>
+                <p class="text-xl mb-12 opacity-95">
+                    Career Development and Academic Tracking Platform for Geethanjali Institute of Science and Technology (GIST), Nellore
+                </p>
+                
+                <!-- Key Stats -->
+                <div class="grid grid-cols-3 gap-4 p-6 bg-white/10 rounded-xl">
+                    <div class="text-center"><div class="text-3xl font-bold mb-1" id="landingStudents">0</div><div class="text-sm opacity-90">Students</div></div>
+                    <div class="text-center"><div class="text-3xl font-bold mb-1" id="landingMentors">0</div><div class="text-sm opacity-90">Mentors</div></div>
+                    <div class="text-center"><div class="text-3xl font-bold mb-1" id="landingAvgCgpa">-</div><div class="text-sm opacity-90">Avg CGPA</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Selection -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="h2 text-center text-gist-navy mb-3">Choose Your Dashboard</h2>
+            <p class="text-base text-gray-600 text-center max-w-2xl mx-auto mb-12">Professional dashboards designed for students, mentors, and administrators</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                <!-- Student Card -->
+                <a href="student-login.html" class="card p-8 text-center flex flex-col items-center justify-center">
+                    <div class="text-5xl mb-4">👨‍🎓</div>
+                    <h3 class="text-xl font-semibold text-gist-navy mb-3">Student Login</h3>
+                    <p class="text-sm text-gray-600 mb-6">Track academic progress, goals, mentor feedback, career skills & certifications</p>
+                    <div class="flex items-center gap-2 text-primary font-medium text-sm">
+                        Login as Student <span>→</span>
+                    </div>
+                </a>
+
+                <!-- Mentor Card -->
+                <a href="mentor-login.html" class="card p-8 text-center flex flex-col items-center justify-center">
+                    <div class="text-5xl mb-4">👨‍🏫</div>
+                    <h3 class="text-xl font-semibold text-gist-navy mb-3">Mentor Login</h3>
+                    <p class="text-sm text-gray-600 mb-6">Monitor student progress, assign goals, provide feedback & track performance</p>
+                    <div class="flex items-center gap-2 text-primary font-medium text-sm">
+                        Login as Mentor <span>→</span>
+                    </div>
+                </a>
+
+                <!-- Admin Card -->
+                <a href="admin-login.html" class="card p-8 text-center flex flex-col items-center justify-center">
+                    <div class="text-5xl mb-4">⚙️</div>
+                    <h3 class="text-xl font-semibold text-gist-navy mb-3">Admin Login</h3>
+                    <p class="text-sm text-gray-600 mb-6">Institutional analytics, branch-wise performance, placement readiness overview</p>
+                    <div class="flex items-center gap-2 text-primary font-medium text-sm">
+                        Login as Admin <span>→</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Information -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-semibold text-center mb-8 text-navy">Login Information</h2>
+                <div class="card p-6">
+                    <div class="text-sm text-gray-700 space-y-2">
+                        <p><strong>Students:</strong> Login using your roll number and password.</p>
+                        <p><strong>Mentors:</strong> Login using your mentor ID and password.</p>
+                        <p><strong>Admins:</strong> Login using your admin ID and password.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-primary text-white py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-2xl mx-auto">
+                <h3 class="text-xl font-semibold mb-2">Geethanjali Institute of Science and Technology (GIST), Nellore</h3>
+                <p class="text-sm opacity-90 mb-4">Mentoring & Career Tracking System</p>
+                <p class="text-sm opacity-75">Empowering students from first year to placement readiness © 2026</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        async function loadLandingStats() {
+            try {
+                const res = await fetch(`${Auth.apiBase}/api/public/stats`);
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) return;
+
+                document.getElementById('landingStudents').textContent = data.totalStudents ?? 0;
+                document.getElementById('landingMentors').textContent = data.totalMentors ?? 0;
+                document.getElementById('landingAvgCgpa').textContent = data.avgCgpa ?? '-';
+            } catch (_error) {
+                // Keep defaults if the backend is unavailable.
+            }
+        }
+
+        loadLandingStats();
+    </script>
+</body>
+</html>
